@@ -3,12 +3,18 @@ fn main() {
 
     let iter = input.chars();
     let zipped = iter.zip(input.chars().cycle().skip(1));
-    let mut total = 0;
-    for pair in zipped {
-        let (val, next) = pair;
+    let zipped_again = zipped.zip(input.chars().cycle().skip(input.chars().count() / 2));
+    let mut total1 = 0;
+    let mut total2 = 0;
+    for triplet in zipped_again {
+        let ((val, next), halfway_around) = triplet;
         if val == next {
-            total += val.to_digit(10).unwrap();
+            total1 += val.to_digit(10).unwrap();
+        }
+        if val == halfway_around {
+            total2 += halfway_around.to_digit(10).unwrap();
         }
     }
-    println!("{}", total);
+    println!("part 1: {}", total1);
+    println!("part 2: {}", total2);
 }
